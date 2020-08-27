@@ -1,8 +1,17 @@
+import "reflect-metadata";
 import { ApolloServer } from "apollo-server-micro";
-import { schema } from "src/schema";
+import { buildSchemaSync, Resolver, Query } from "type-graphql";
 
-const server = new ApolloServer({ schema });
-const handler = server.createHandler({ path: "/api/graphql" });
+@Resolver()
+class HelloResolver {
+  @Query(() => String)
+  hello() {
+    return "hello";
+  }
+}
+
+const schema = buildSchemaSync({ resolvers: [HelloResolver] });
+const apolloServer = new ApolloServer({ schema });
 
 export const config = {
   api: {
@@ -10,4 +19,4 @@ export const config = {
   },
 };
 
-export default handler;
+export default apolloServer.createHandler({ path: "/api/graphql" });
