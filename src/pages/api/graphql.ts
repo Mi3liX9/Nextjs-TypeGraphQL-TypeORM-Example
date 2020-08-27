@@ -1,16 +1,7 @@
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-micro";
-import { buildSchemaSync, Resolver, Query } from "type-graphql";
+import { schema } from "src/schema";
 
-@Resolver()
-class HelloResolver {
-  @Query(() => String)
-  hello() {
-    return "hello";
-  }
-}
-
-const schema = buildSchemaSync({ resolvers: [HelloResolver] });
 const apolloServer = new ApolloServer({ schema });
 
 export const config = {

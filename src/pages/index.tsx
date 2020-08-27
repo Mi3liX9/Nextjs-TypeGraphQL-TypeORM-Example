@@ -3,7 +3,7 @@ import { initializeApollo } from "src/apollo";
 
 const MyQuery = gql`
   query MyQuery {
-    name
+    hello
   }
 `;
 

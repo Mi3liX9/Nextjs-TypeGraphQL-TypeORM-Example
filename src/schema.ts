@@ -1,13 +1,6 @@
-import { makeSchema, queryType } from "@nexus/schema";
+import { buildSchemaSync } from "type-graphql";
+import HelloResolver from "./resolvers/hello.resolver";
 
-const Query = queryType({
-  definition(t) {
-    t.string("name", () => "Leigh Halliday");
-  },
-});
-
-const types = { Query };
-
-export const schema = makeSchema({
-  types,
+export const schema = buildSchemaSync({
+  resolvers: [HelloResolver],
 });
