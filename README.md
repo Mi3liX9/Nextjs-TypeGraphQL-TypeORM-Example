@@ -1,4 +1,3 @@
-# Apollo Client v3 in Next.js
+# Apollo Client v3 and Type-GraphQL in Next.js
 
-- Video: https://youtu.be/y34ym0-KZ8A
-- Next.js Example: https://github.com/vercel/next.js/tree/canary/examples/api-routes-apollo-server-and-client
+I toke the example Leigh Halliday made in [his video](https://youtu.be/y34ym0-KZ8A) and add Type-GraphQL instead of Nexus.
