@@ -1,6 +1,8 @@
 import { buildSchemaSync } from "type-graphql";
-import HelloResolver from "./resolvers/hello.resolver";
+import { Container as container } from "typedi";
+import { TodoResolver } from "./features/todos/todo.resolver";
 
 export const schema = buildSchemaSync({
-  resolvers: [HelloResolver],
+  resolvers: [TodoResolver],
+  container,
 });
