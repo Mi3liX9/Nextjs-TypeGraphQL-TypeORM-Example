@@ -13,7 +13,7 @@
 /out/
 
 # database
-
+/data/
 *.sqlite
 
 # production

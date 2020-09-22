@@ -15,7 +15,13 @@
         "loose": true
       }
     ],
-    "babel-plugin-parameter-decorator"
+    "babel-plugin-parameter-decorator",
+    [
+      "styled-components",
+      {
+        "ssr": true
+      }
+    ]
   ],
   "ignore": ["node_modules", "build"]
 }
