@@ -1,17 +1,27 @@
-import { Query, Resolver } from "type-graphql";
-import { Service } from "typedi";
-import { getMongoRepository } from "typeorm";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { getRepository } from "typeorm";
 import { Todo } from "./todo.entitiy";
 import { TodoService } from "./todo.service";
 
-@Service()
 @Resolver()
 export class TodoResolver {
-  // constructor(private readonly todoService: TodoService) {}
+  constructor(private readonly todoService = new TodoService()) {}
 
   @Query(() => [Todo], { nullable: true })
   async todoList() {
-    const todos = await getMongoRepository(Todo).find();
+    const todos = await this.todoService.getAll();
     return todos;
+  }
+
+  @Mutation(() => Todo)
+  async addTodo(@Arg("title") title: string) {
+    const todo = await this.todoService.add(title);
+    return todo;
+  }
+
+  @Mutation(() => Todo)
+  async switchTodo(@Arg("id") id: number) {
+    const todo = await this.todoService.switch(id);
+    return todo;
   }
 }

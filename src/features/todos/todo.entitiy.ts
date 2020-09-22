@@ -1,18 +1,18 @@
 import { ObjectType, Field, ID } from "type-graphql";
-import { Entity, ObjectIdColumn, Column } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @ObjectType()
-@Entity()
+@Entity("todos")
 export class Todo {
-  @ObjectIdColumn()
+  @PrimaryGeneratedColumn()
   @Field(() => ID)
-  id: string;
+  id: number;
 
   @Field(() => String)
-  @Column("text")
+  @Column()
   title: string;
 
   @Field(() => String)
-  @Column("boolean")
+  @Column()
   isDone: boolean;
 }

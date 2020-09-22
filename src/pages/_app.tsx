@@ -1,4 +1,4 @@
-import "reflect-metadata";
+// import "reflect-metadata";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "src/apollo";
 import "../styles/globals.css";

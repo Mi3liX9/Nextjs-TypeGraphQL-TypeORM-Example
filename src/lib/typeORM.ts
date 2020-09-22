@@ -16,6 +16,7 @@ export async function connectDatabase(options: ConnectionOptions) {
   const connection = getConnectionOrCreate(options);
   if (!connection.isConnected) {
     await connection.connect();
+    console.info("ready - database is ready to use");
   }
   return connection;
 }

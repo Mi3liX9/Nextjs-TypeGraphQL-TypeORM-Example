@@ -1,18 +1,23 @@
 import { Todo } from "./todo.entitiy";
-import { Repository } from "typeorm";
-import { Service } from "typedi";
-import { InjectRepository } from "typeorm-typedi-extensions";
+import { Connection, getConnection, getRepository } from "typeorm";
 
-@Service()
 export class TodoService {
-  constructor(
-    @InjectRepository()
-    private readonly todoResolver: Repository<Todo>
-  ) {}
+  constructor(private readonly todoReposetory = getRepository<Todo>("todos")) {}
 
   async getAll() {
-    return await this.todoResolver.find();
+    return await this.todoReposetory.find();
   }
 
-  add = async (title: string) => await this.todoResolver.save({ title });
+  async add(title: string) {
+    return await this.todoReposetory.save({ title, isDone: false });
+  }
+
+  async switch(id: number) {
+    const todo = await this.todoReposetory.findOne({ id });
+    await this.todoReposetory.update(id, {
+      isDone: !todo?.isDone,
+    });
+    todo!.isDone = !todo?.isDone;
+    return todo;
+  }
 }
