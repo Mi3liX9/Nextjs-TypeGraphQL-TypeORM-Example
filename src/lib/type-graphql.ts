@@ -1,5 +1,5 @@
 import { ApolloServer } from "apollo-server-micro";
-import { schema } from "src/schema";
+import { schema } from "src/lib/schema";
 import { options } from "./database-options";
 import { connectDatabase } from "./typeORM";
 

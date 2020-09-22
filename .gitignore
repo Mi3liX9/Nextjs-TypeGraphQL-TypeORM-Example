@@ -12,6 +12,10 @@
 /.next/
 /out/
 
+# database
+
+*.sqlite
+
 # production
 /build
 

@@ -1,5 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
-import { initializeApollo } from "src/apollo";
+import { initializeApollo } from "src/lib/apollo-client";
 import { Todo } from "src/features/todos/todo.entitiy";
 
 const MyQuery = gql`
