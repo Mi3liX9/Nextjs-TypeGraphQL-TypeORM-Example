@@ -1,20 +1,25 @@
 import { Todo } from "./todo.entitiy";
-import { Connection, getConnection, getRepository } from "typeorm";
+import { database as db } from "src/lib/database";
 
 export class TodoService {
-  constructor(private readonly todoReposetory = getRepository<Todo>("todos")) {}
-
   async getAll() {
-    return await this.todoReposetory.find();
+    const connection = await db().connect();
+    const todoRepo = connection.getRepository<Todo>("todos");
+    return await todoRepo.find();
   }
 
   async add(title: string) {
-    return await this.todoReposetory.save({ title, isDone: false });
+    const connection = await db().connect();
+    const todoRepo = connection.getRepository<Todo>("todos");
+    return await todoRepo.save({ title, isDone: false });
   }
 
   async switch(id: number) {
-    const todo = await this.todoReposetory.findOne({ id });
-    await this.todoReposetory.update(id, {
+    const connection = await db().connect();
+    const todoRepo = connection.getRepository<Todo>("todos");
+
+    const todo = await todoRepo.findOne({ id });
+    await todoRepo.update(id, {
       isDone: !todo?.isDone,
     });
     todo!.isDone = !todo?.isDone;
