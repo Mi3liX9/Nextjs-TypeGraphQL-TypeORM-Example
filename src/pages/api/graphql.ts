@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { options } from "src/lib/database-options";
 import { getApolloServerHandler } from "src/lib/type-graphql";
-import { connectDatabase } from "src/lib/typeORM";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const apolloServerHandler = await getApolloServerHandler();
