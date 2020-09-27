@@ -1,7 +1,12 @@
-import { ConnectionOptions, ConnectionManager } from "typeorm";
+import {
+  ConnectionOptions,
+  ConnectionManager,
+  Repository,
+  Connection,
+} from "typeorm";
 import { options } from "./database-options";
 
-function setupConnection(options: ConnectionOptions) {
+export function useConnection(options: ConnectionOptions) {
   const name = options.name ?? "default";
 
   const connectionManager = new ConnectionManager();
@@ -13,8 +18,13 @@ function setupConnection(options: ConnectionOptions) {
   return connectionManager.get(name);
 }
 
-export function database() {
-  return setupConnection(options);
+export async function useRepository<T>(
+  target: string
+): Promise<[Repository<T>, Connection]> {
+  const database = useConnection(options);
+  const connectedDatabase = await database.connect();
+  const reposetory = connectedDatabase.getRepository<T>(target);
+  return [reposetory, database];
 }
 
 // export async function connectDatabase(options: ConnectionOptions) {

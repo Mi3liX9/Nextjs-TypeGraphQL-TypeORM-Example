@@ -1,25 +1,23 @@
 import { Todo } from "./todo.entitiy";
-import { database as db } from "src/lib/database";
+import { useRepository } from "src/lib/database";
 
 export class TodoService {
   async getAll() {
-    const connection = await db().connect();
-    const todoRepo = connection.getRepository<Todo>("todos");
-    return await todoRepo.find();
+    const [todoRepository] = await useRepository<Todo>("todos");
+    const todos = await todoRepository.find();
+    return todos.reverse();
   }
 
   async add(title: string) {
-    const connection = await db().connect();
-    const todoRepo = connection.getRepository<Todo>("todos");
-    return await todoRepo.save({ title, isDone: false });
+    const [todoRepository] = await useRepository<Todo>("todos");
+    return await todoRepository.save({ title, isDone: false });
   }
 
   async switch(id: number) {
-    const connection = await db().connect();
-    const todoRepo = connection.getRepository<Todo>("todos");
+    const [todoRepository] = await useRepository<Todo>("todos");
 
-    const todo = await todoRepo.findOne({ id });
-    await todoRepo.update(id, {
+    const todo = await todoRepository.findOne({ id });
+    await todoRepository.update(id, {
       isDone: !todo?.isDone,
     });
     todo!.isDone = !todo?.isDone;

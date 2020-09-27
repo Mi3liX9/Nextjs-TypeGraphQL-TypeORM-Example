@@ -1,51 +1,29 @@
-import { useQuery, gql } from "@apollo/client";
 import { initializeApollo } from "src/lib/apollo-client";
-import { Todo } from "src/features/todos/todo.entitiy";
+import TodoList from "src/components/todos";
+import { TodoQuery } from "src/hooks/useTodos";
+import NewTodo from "src/components/newTodo";
 import styled from "styled-components";
 
-const MyQuery = gql`
-  query Query {
-    todoList {
-      title
-      id
-    }
-  }
-`;
-
-const AddQuery = gql`
-  mutation($title: String) {
-    addTodo(title: $title) {
-      title
-      id
-      isDone
-    }
-  }
-`;
-
-const TodoList = styled.ul``;
-
-const StyledTodo = styled.li`
-  background-color: rgba(0, 0, 0, 0.1);
-`;
-
 export default function Home() {
-  const { data, loading } = useQuery<{ todoList: Todo[] }>(MyQuery);
-  if (loading) return <span>loading...</span>;
-
   return (
-    <TodoList>
-      {data?.todoList.map((todo) => (
-        <StyledTodo key={todo.id}>{todo.title}</StyledTodo>
-      ))}
-    </TodoList>
+    <StyledDiv>
+      <h2>Todo List</h2>
+      <p>This is basic todo list, click on it to done.</p>
+      <NewTodo />
+      <TodoList />
+    </StyledDiv>
   );
 }
+
+const StyledDiv = styled.div`
+  padding: 10px;
+`;
 
 export async function getStaticProps() {
   const apolloClient = initializeApollo();
 
   await apolloClient.query({
-    query: MyQuery,
+    query: TodoQuery,
   });
 
   return {

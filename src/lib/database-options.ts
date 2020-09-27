@@ -3,8 +3,7 @@ import { ConnectionOptions } from "typeorm";
 
 export const options: ConnectionOptions = {
   type: "sqlite",
-  database: `src/data/line.sqlite`,
+  database: `src/database/database.sqlite`,
   entities: [Todo],
   synchronize: true,
-  logging: true,
 };

@@ -8,11 +8,11 @@ export class Todo {
   @Field(() => ID)
   id: number;
 
-  @Field(() => String)
+  @Field()
   @Column()
   title: string;
 
-  @Field(() => String)
+  @Field()
   @Column()
   isDone: boolean;
 }
